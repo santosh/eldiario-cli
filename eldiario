@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 #-*- coding: utf-8 -*-
 
-from __future__ import print_function, division, absolute_import, unicode_literals
 import os
 import sys
 import argparse
@@ -21,7 +20,7 @@ parser.add_argument(
     '--new',
     dest='new',
     action='store_true',
-    help='creates new diary at current time'
+    help='creates new entry at current time'
 )
 
 parser.add_argument(
@@ -29,7 +28,7 @@ parser.add_argument(
     '--list',
     dest='lists',
     action='store_true',
-    help='lists available diaries'
+    help='lists available entries'
 )
 
 args = parser.parse_args()
