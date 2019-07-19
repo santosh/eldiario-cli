@@ -4,31 +4,53 @@
 import os
 import sys
 import argparse
-from argparse import RawDescriptionHelpFormatter
-from datetime import datetime
+import datetime
+
+# import diariolib
+
+right_now = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
 
 # {{{ Argument Parser
 parser = argparse.ArgumentParser(
     prog='eldiario',
     description='CLI diary program',
-    formatter_class=RawDescriptionHelpFormatter,
-    epilog='''alpha version, report errors to github'''
-        )
+    formatter_class=argparse.RawDescriptionHelpFormatter,
+    epilog='''alpha version, report errors to github: https://git.io/eldiario''')
 
-parser.add_argument(
+# all flags are mutually exclusive
+group = parser.add_mutually_exclusive_group()
+
+# this will be the default, i.e. without any flag, this will start (for current timestamp)
+group.add_argument(
     '-n',
     '--new',
-    dest='new',
-    action='store_true',
+    default=right_now,
+    metavar='DATETIME',
+    nargs='?',
     help='creates new entry at current time'
 )
 
-parser.add_argument(
+group.add_argument(
+    '-e',
+    '--edit',
+    metavar='ID',
+    help='edit an existing note'
+)
+
+# listing should also show IDs
+group.add_argument(
     '-l',
     '--list',
-    dest='lists',
     action='store_true',
-    help='lists available entries'
+    help='lists available note'
+)
+
+group.add_argument(
+    '-d',
+    '--delete',
+    metavar='ID',
+    nargs='+',
+    help='delete existing note'
 )
 
 args = parser.parse_args()
