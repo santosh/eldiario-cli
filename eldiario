@@ -1,93 +1,46 @@
 #!/usr/bin/env python3
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
-import os
 import sys
 import argparse
 import datetime
 
-# import diariolib
+import diariolib
 
-right_now = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+right_now = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
 
-# {{{ Argument Parser
 parser = argparse.ArgumentParser(
-    prog='eldiario',
-    description='CLI diary program',
+    prog="eldiario",
+    description="A CLI diary app.",
     formatter_class=argparse.RawDescriptionHelpFormatter,
-    epilog='''alpha version, report errors to github: https://git.io/eldiario''')
+    epilog="""See link below for more info:
+Update me with the bitbucket URL.""")
 
-# all flags are mutually exclusive
 group = parser.add_mutually_exclusive_group()
 
 # this will be the default, i.e. without any flag, this will start (for current timestamp)
-group.add_argument(
-    '-n',
-    '--new',
-    default=right_now,
-    metavar='DATETIME',
-    nargs='?',
-    help='creates new entry at current time'
-)
-
-group.add_argument(
-    '-e',
-    '--edit',
-    metavar='ID',
-    help='edit an existing note'
-)
-
-# listing should also show IDs
-group.add_argument(
-    '-l',
-    '--list',
-    action='store_true',
-    help='lists available note'
-)
-
-group.add_argument(
-    '-d',
-    '--delete',
-    metavar='ID',
-    nargs='+',
-    help='delete existing note'
-)
+group.add_argument('-n',
+                   '--new',
+                   default=right_now,
+                   metavar='DATETIME',
+                   nargs='?',
+                   help='create new note for given timestamp')
+group.add_argument('-e', '--edit', metavar='ID', help='edit an existing note')
+# The listing should show also the IDs.
+group.add_argument('-l',
+                   '--list',
+                   action='store_true',
+                   help='list existing notes')
+group.add_argument('-d',
+                   '--delete',
+                   metavar='ID',
+                   nargs='+',
+                   help='delete existing notes')
+# sync on every new entries and edits to the backing store
 
 args = parser.parse_args()
+diaryapp = diariolib.ElDiario(args)
 
-# }}}
-# {{{ Definitions
-now = datetime.now()
-year = now.strftime('%Y')
-month = now.strftime('%m')
-day = now.strftime('%d')
-hour = now.strftime('%H')
-minute = now.strftime('%M')
-second = now.strftime('%S')
-ymd = [year, month, day]
-hms = [hour, minute, second]
-currentTime = ':'.join(hms)
-currentDate = '-'.join(ymd)
-file_extension = ".txt"
-eldiario_dir = os.path.join(os.path.expanduser("~"), 'eldiario')
-# }}}
-# {{{ Directory creation handling
-# create dir if not exists
-if not os.path.exists(eldiario_dir):
-    os.mkdir(eldiario_dir)
-
-# create date folder if eldiario_dir exists
-if not os.path.exists(os.path.join(eldiario_dir + "/" + year)):
-    os.mkdir(os.path.join(eldiario_dir) + "/" + year)
-
-# create date folder if year folder exists
-if not os.path.exists(os.path.join(eldiario_dir + "/" + year + "/" + month)):
-    os.mkdir(os.path.join(eldiario_dir) + "/" + year + "/" + month)
-# }}}
-
-if args.new:
-    with open(os.path.join(eldiario_dir, year, month, currentDate + file_extension), 'w') as today:
-        today.write("This is ecxt\n")
-elif args.lists:
-    print("listing")
-    os.listdir(eldiario_dir)
+# This will notbe the default, instead will be --new
+if len(sys.argv) < 2:
+    diaryapp.new_entry()
