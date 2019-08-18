@@ -32,7 +32,7 @@ For testing following curl commands can be used.
 
 Add a new entry:
 
-    curl -X POST -H "Content-Type: application/json" -d '{"id": "bd7b69fa-9207-4996-91cd-b7eec3fce21b", body": "A normal day at Method", "datetime": "20190729224822", "author": "kumarsant"}' http://localhost:8080/entry
+    curl -X POST -H "Content-Type: application/json" -d '{"id": "bd7b69fa-9207-4996-91cd-b7eec3fce21b", body": "Starting days with eldiario", "datetime": "20190729224822", "author": "sntshk"}' http://localhost:8080/entry
 
 
 Get all entries:
@@ -43,10 +43,10 @@ Get a specific entry:
 
     curl -H "Content-Type: application/json" http://localhost:8080/entry/bd7b69fa-9207-4996-91cd-b7eec3fce21b
 
-Update book:
+Update entry:
 
-    curl -X PUT -H "Content-Type: application/json" -d '{"id": "bd7b69fa-9207-4996-91cd-b7eec3fce21b", body": "A normal day at Method Studios.", "datetime": "20190729224822", "author": "kumarsant"}' http://localhost:8080/entry/bd7b69fa-9207-4996-91cd-b7eec3fce21b
+    curl -X PUT -H "Content-Type: application/json" -d '{"id": "bd7b69fa-9207-4996-91cd-b7eec3fce21b", body": "eldiario is cool!", "datetime": "20190729224822", "author": "sntshk"}' http://localhost:8080/entry/bd7b69fa-9207-4996-91cd-b7eec3fce21b
 
-Delete a book:
+Delete a entry:
 
     curl -X DELETE -H "Content-Type: application/json" http://localhost:8080/entry/bd7b69fa-9207-4996-91cd-b7eec3fce21b
