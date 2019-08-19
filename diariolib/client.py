@@ -5,6 +5,11 @@ import getpass
 import json
 import requests
 
+try:
+    import httplib
+except:
+    import http.client as httplib
+
 from diariolib import formatter
 from diariolib import editor
 
@@ -21,6 +26,17 @@ class ElDiario(object):
         super(ElDiario, self).__init__()
         self.args = args
         self.kwargs = kwargs
+
+    def backend_running(self):
+        # Check if configured mongo server can be reached.
+        conn = httplib.HTTPConnection("localhost:8080", timeout=1)
+        try:
+            conn.request("HEAD", "/")
+            conn.close()
+            return True
+        except:
+            conn.close()
+            return False
 
     def new_entry(self):
         # self.args is tuple of len == 1

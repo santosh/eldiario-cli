@@ -41,6 +41,9 @@ group.add_argument('-d',
 args = parser.parse_args()
 diaryapp = client.ElDiario(args)
 
+if not diaryapp.backend_running():
+    sys.exit("Connection Error")
+
 # This will notbe the default, instead will be --new
 if len(sys.argv) < 2:
     diaryapp.new_entry()

@@ -23,6 +23,8 @@ class Editor:
 
         mtime = datetime.datetime.fromtimestamp(os.path.getmtime(path))
 
+        logging.info("file modification time: {}".format(mtime))
+
         logging.debug("ctime: %s" % ctime)
         logging.debug("mtime: %s" % mtime)
 
