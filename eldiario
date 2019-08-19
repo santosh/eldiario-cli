@@ -44,3 +44,5 @@ diaryapp = client.ElDiario(args)
 # This will notbe the default, instead will be --new
 if len(sys.argv) < 2:
     diaryapp.new_entry()
+elif args.list:
+    diaryapp.list_entry()
