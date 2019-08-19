@@ -5,7 +5,7 @@ import sys
 import argparse
 import datetime
 
-import diariolib
+from diariolib import client
 
 right_now = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
 
@@ -39,7 +39,7 @@ group.add_argument('-d',
 # sync on every new entries and edits to the backing store
 
 args = parser.parse_args()
-diaryapp = diariolib.ElDiario(args)
+diaryapp = client.ElDiario(args)
 
 # This will notbe the default, instead will be --new
 if len(sys.argv) < 2:
