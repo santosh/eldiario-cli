@@ -38,11 +38,7 @@ class ElDiario(object):
             conn.close()
             return False
 
-    def new_entry(self):
-        # self.args is tuple of len == 1
-        # 1st index of tuple is Namespace object
-        current_time = self.args[-1].new
-
+    def new_entry(self, current_time):
         header = {"Content-Type": "application/json"}
         payload = {
             "id": self.get_new_uuid(),

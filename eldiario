@@ -18,13 +18,10 @@ Update me with the bitbucket URL.""")
 
 group = parser.add_mutually_exclusive_group()
 
-# this will be the default, i.e. without any flag, this will start (for current timestamp)
 group.add_argument('-n',
                    '--new',
-                   default=right_now,
-                   metavar='DATETIME',
-                   nargs='?',
-                   help='create new note for given timestamp')
+                   action='store_true',
+                   help='create new note at current time')
 group.add_argument('-e', '--edit', metavar='ID', help='edit an existing note')
 # The listing should show also the IDs.
 group.add_argument('-l',
@@ -46,6 +43,8 @@ if not diaryapp.backend_running():
 
 # This will notbe the default, instead will be --new
 if len(sys.argv) < 2:
-    diaryapp.new_entry()
+    parser.print_usage()
 elif args.list:
     diaryapp.list_entry()
+elif args.new:
+    diaryapp.new_entry(right_now)
