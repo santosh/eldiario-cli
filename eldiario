@@ -7,7 +7,7 @@ import datetime
 
 from diariolib import client
 
-right_now = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+right_now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 parser = argparse.ArgumentParser(
     prog="eldiario",
