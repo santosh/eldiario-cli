@@ -27,6 +27,9 @@ func main() {
 	mux.HandleFunc(pat.Get("/entry/:id"), handler.GetEntry(session))
 	mux.HandleFunc(pat.Put("/entry/:id"), handler.UpdateEntry(session))
 	mux.HandleFunc(pat.Delete("/entry/:id"), handler.DeleteEntry(session))
+	
+	// shoud be at last; otherwise other patterns never gonna match
+	mux.Handle(pat.Get("/"), http.StripPrefix("/", http.FileServer(http.Dir("static"))))
 
 	http.ListenAndServe(":8080", mux)
 }
