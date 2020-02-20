@@ -91,4 +91,4 @@ class ElDiario(object):
 
 
     def get_new_uuid(self):
-        return str(uuid.uuid4())
+        return uuid.uuid4().hex[:8]

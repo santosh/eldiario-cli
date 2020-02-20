@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/globalsign/mgo"
@@ -8,7 +9,6 @@ import (
 	"goji.io"
 	"goji.io/pat"
 )
-
 
 // TODO: Can we replace goji with mux? Which one is better?
 func main() {
@@ -27,10 +27,11 @@ func main() {
 	mux.HandleFunc(pat.Get("/entry/:id"), handler.GetEntry(session))
 	mux.HandleFunc(pat.Put("/entry/:id"), handler.UpdateEntry(session))
 	mux.HandleFunc(pat.Delete("/entry/:id"), handler.DeleteEntry(session))
-	
+
 	// shoud be at last; otherwise other patterns never gonna match
 	mux.Handle(pat.Get("/"), http.StripPrefix("/", http.FileServer(http.Dir("static"))))
 
+	fmt.Println("Listening at http://127.0.0.1:8080")
 	http.ListenAndServe(":8080", mux)
 }
 
