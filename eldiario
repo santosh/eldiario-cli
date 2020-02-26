@@ -50,3 +50,5 @@ elif args.new:
     diaryapp.new_entry(right_now)
 elif args.edit:
     diaryapp.update_entry(args.edit)
+elif args.delete:
+    diaryapp.delete_entry(args.delete)

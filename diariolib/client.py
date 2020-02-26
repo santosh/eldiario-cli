@@ -55,9 +55,12 @@ class ElDiario(object):
 
         logging.info("new entry received: %s" % r.text)
 
-    def delete_entry(self, id):
-        pass
+    def delete_entry(self, _ids):
         # Make a DELETE Request to /api/entry/{id}
+
+        for _id in _ids:
+            requests.delete(f'http://localhost:8080/entry/{_id}')
+
 
     def list_entry(self):
         # Make a GET Request to /api/entries
