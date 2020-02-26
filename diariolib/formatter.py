@@ -16,7 +16,7 @@ def json_to_row(json_data: dict) -> str:
         print(
             template.format(
                 entry_id=entry["id"][:UUID_THRESHOLD],
-                datetime=entry["datetime"][:DATETIME_THRESHOLD],
+                datetime=entry["created"][:DATETIME_THRESHOLD],
                 text=get_body(entry["body"], TEXT_THRESHOLD),
                 )
             )

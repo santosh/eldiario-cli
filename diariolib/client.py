@@ -1,8 +1,10 @@
-import os
-import logging
-import uuid
+import datetime
 import getpass
+import logging
+import os
 import json
+import uuid
+
 import requests
 
 try:
@@ -43,7 +45,8 @@ class ElDiario(object):
         payload = {
             "id": self.get_new_uuid(),
             "body": editor.Editor().get_text_from_new(),
-            "datetime": current_time,
+            "created": current_time,
+            "modified": current_time,
             "author": self.user,
         }
         r = requests.post('http://localhost:8080/entry',
@@ -65,16 +68,24 @@ class ElDiario(object):
 
         formatter.json_to_row(r.text)
 
-    def update_entry(self, entry_id, data):
+    def update_entry(self, entry_id):
         # Make a PUT Request to entry/{id}
         header = {"Content-Type": "application/json"}
+        
+        r = requests.get(f'http://localhost:8080/entry/{entry_id}', headers=header)
+        # FIXME: r.text should not newlines but concrete JSON data
+        
+        strdict = r.text.replace("\n", "")
+        dic = dict(eval(strdict))
+        
         payload = {
             "id": entry_id,
-            "body": "Will have to open vim and wait for exit 0",
-            "datetime": current_time,
+            "body": editor.Editor().editor_from_message(dic["created"], dic["body"]),
+            "created": dic["created"],
+            "modified": datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             "author": self.user,
         }
-        r = requests.post('http://localhost:8080/entry',
+        r = requests.put(f'http://localhost:8080/entry/{entry_id}',
                         headers=header,
                         data=json.dumps(payload))
 

@@ -72,9 +72,19 @@ class Editor:
         
         return file_creation_time, tempfile_path
 
-    def editor_from_message(cls):
-        """Returns an Editor class representing mongo row."""
-        return cls
+    def editor_from_message(self, ctime, text):
+        """Returns an Editor representing mongo row."""
+
+        _, tempfile_path = tempfile.mkstemp(suffix=".md", prefix="eldiario_", text=1)        
+
+        with open(tempfile_path, "w") as writeto:
+            writeto.write(text)
+
+        editor = subprocess.Popen([Editor.preferred_editor(), tempfile_path])
+        editor.wait()
+
+        with open(tempfile_path) as readfrom:
+            return readfrom.read()
 
 
 if __name__ == "__main__":

@@ -48,3 +48,5 @@ elif args.list:
     diaryapp.list_entry()
 elif args.new:
     diaryapp.new_entry(right_now)
+elif args.edit:
+    diaryapp.update_entry(args.edit)
