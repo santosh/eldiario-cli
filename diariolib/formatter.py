@@ -17,6 +17,12 @@ def json_to_row(json_data: dict) -> str:
             template.format(
                 entry_id=entry["id"][:UUID_THRESHOLD],
                 datetime=entry["datetime"][:DATETIME_THRESHOLD],
-                text=entry["body"][:TEXT_THRESHOLD] + "..."
+                text=get_body(entry["body"], TEXT_THRESHOLD),
                 )
             )
+
+
+def get_body(text, threshold):
+    if len(text) < threshold:
+        return text.strip("\n")
+    return text[:threshold] + "..."
