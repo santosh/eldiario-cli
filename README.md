@@ -6,18 +6,18 @@ which handles API requests. The rest of it is CLI front-end written in Python.
 
 ## Installation
 
-The server application needs a working instance of MongoDB running.
+The server application needs a working instance of MongoDB running. With Docker, start a new instance of mongo with:
 
-The client application is written in Python and is dependent on requests library.
+    docker run -d -p 27017-27019:27017-27019 --name mongodb mongo
+
+The client application is written in Python and is uses requests. Here you'll be sepending most of the time.
 
 ## Usage
 
-When you launch eldiario, you are put inside your choice of editor (eldiario reads `$EDITOR`),
-which when you save is updated in the database. The database we use is stored on MongoDB
-backing store.
+When you launch eldiario, you are put inside your choice of editor (eldiario reads `$EDITOR`).
 
 You can pass date-time in the format of YYMMDDHHMMSS to override the `--new` timestamp.
-Passing full DateTime is not required but helps in sorting.
+Passing full DateTime helps in sorting.
 
 <!-- ## Configuration -->
 
@@ -29,10 +29,6 @@ With each diary entry, there goes some metadata which are:
 - Author: To show only the entries written by the current user.
 - Body: The actual entry.
 - UUID: Random generated UUID at the front end
-
-### TODO
-
-- [ ] Use subprocess to open blank editor/editor with entires, save/edit only when exit code is 0.
 
 ### Test API
 
