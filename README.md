@@ -1,18 +1,11 @@
 # eldiario
 
-**eldiario** is a command-line utility to write down notes, in the form of a journal.
-eldiario is based on the client-server model. eldiario's backend is written in go
-which handles API requests. The rest of it is CLI front-end written in Python.
+**eldiario** is a command-line utility to write down notes, in the form of a journal. eldiario-cli is written in Python.
 
 ## Installation
 
-The server application needs a working instance of MongoDB running.
-With Docker, start a new instance of mongo with:
-
-    docker run -d -p 27017-27019:27017-27019 --name mongodb mongo
-
 The client application is written in Python and is uses requests.
-Here you'll be sepending most of the time.
+Here you'll be spending most of the time.
 
 ## Usage
 
