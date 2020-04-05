@@ -1,8 +1,9 @@
-import os
-import logging
-import tempfile
 import datetime
+import logging
+import os
+import pathlib
 import subprocess
+import tempfile
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -85,6 +86,11 @@ class Editor:
 
         with open(tempfile_path) as readfrom:
             return readfrom.read()
+
+
+def clean_editor_cache():
+    for f in pathlib.Path("/tmp").glob("eldiario_*"):
+        os.unlink(f)
 
 
 if __name__ == "__main__":

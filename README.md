@@ -6,11 +6,13 @@ which handles API requests. The rest of it is CLI front-end written in Python.
 
 ## Installation
 
-The server application needs a working instance of MongoDB running. With Docker, start a new instance of mongo with:
+The server application needs a working instance of MongoDB running.
+With Docker, start a new instance of mongo with:
 
     docker run -d -p 27017-27019:27017-27019 --name mongodb mongo
 
-The client application is written in Python and is uses requests. Here you'll be sepending most of the time.
+The client application is written in Python and is uses requests.
+Here you'll be sepending most of the time.
 
 ## Usage
 

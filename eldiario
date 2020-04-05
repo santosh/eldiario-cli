@@ -6,6 +6,7 @@ import argparse
 import datetime
 
 from diariolib import client
+from diariolib import editor
 
 right_now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
@@ -15,6 +16,8 @@ parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,
     epilog="""See link below for more info:
 Update me with the bitbucket URL.""")
+
+parser.add_argument('clean')
 
 group = parser.add_mutually_exclusive_group()
 
@@ -44,6 +47,8 @@ if not diaryapp.backend_running():
 # This will notbe the default, instead will be --new
 if len(sys.argv) < 2:
     parser.print_usage()
+elif args.clean:
+    editor.clean_editor_cache()
 elif args.list:
     diaryapp.list_entry()
 elif args.new:
